@@ -32,7 +32,6 @@ def posts(request):
     }
     return render(request, 'posts/posts.html', context)
 
-@login_required(login_url='login')
 def postDetail(request, pk):
 
   tags = Tag.objects.all()
