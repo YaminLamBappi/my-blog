@@ -4,12 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from ckeditor.widgets import CKEditorWidget
 
-from django import forms
-from ckeditor.widgets import CKEditorWidget
 from .models import Post, PostComment, Blogger
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm
 
 class PostForm(forms.ModelForm):
     body = forms.CharField(widget=CKEditorWidget())
