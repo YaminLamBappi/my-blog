@@ -4,19 +4,27 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from ckeditor.widgets import CKEditorWidget
 
-from .models import *
+from django import forms
+from ckeditor.widgets import CKEditorWidget
+from .models import Post, PostComment, Blogger
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 
 class PostForm(forms.ModelForm):
-  class Meta:
-    model = Post
-    exclude = ['author', 'created']
-  def __init__(self, *args, **kwargs):
-    super(PostForm, self).__init__(*args, **kwargs)
-    self.fields['headline'].widget.attrs.update({'class':'form-control', 'placeholder':'Enter headline'})
-    self.fields['sub_headline'].widget.attrs.update({'class':'form-control', 'placeholder':'Enter sub headline'})
-    self.fields['tags'].widget.attrs.update({'class':'form-control w-25 mb-3'})
-    self.fields['thumbnail'].widget.attrs.update({'class':'form-control'})
-    self.fields['body'].widget.attrs.update({'class':'form-control'})
+    body = forms.CharField(widget=CKEditorWidget())
+
+    class Meta:
+        model = Post
+        exclude = ['author', 'created']
+
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['headline'].widget.attrs.update({'class':'form-control', 'placeholder':'Enter headline'})
+        self.fields['sub_headline'].widget.attrs.update({'class':'form-control', 'placeholder':'Enter sub headline'})
+        self.fields['tags'].widget.attrs.update({'class':'form-control w-25 mb-3'})
+        self.fields['thumbnail'].widget.attrs.update({'class':'form-control'})
+
 
 class PostCommentForm(forms.ModelForm):
   class Meta:
